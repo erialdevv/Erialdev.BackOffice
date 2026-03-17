@@ -1,0 +1,6 @@
+@Erialdev.BackOffice.Api_HostAddress = http://localhost:5101
+
+GET {{Erialdev.BackOffice.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

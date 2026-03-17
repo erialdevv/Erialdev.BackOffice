@@ -1,0 +1,71 @@
+## [Standard .NET gitignore]
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleasePublic/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Vv][Ss][Pp][Ss][Cc][Cc]
+[Vv][Ss][Ss][Ss][Cc][Cc]
+.buildlog
+*.bak
+*.log
+*.pdb
+*.sql
+*.cache
+*.out
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2015/2017/2019/2022 cache/options directory
+.vs/
+# File maintained by Visual Studio 2022 Performance Profiler
+*.vsp
+*.vspx
+*.sap
+
+# MSTest test Results
+[Tt]est[Rr]esults/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-agent.log
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet Packages
+*.nupkg
+# The NuGet offline cache is still used by some tools
+# .nuget/
+# .nuget/packages/
+
+# Project-specific overrides
+node_modules/
+.DS_Store
+*.swp
+*.bak
+*.tmp
+*.temp
