@@ -31,7 +31,7 @@ public class Resource : Entity
             throw new InvalidOperationException("No se puede modificar un recurso Anulado");
 
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("El nombre no puede estar vacio");
+            throw new ArgumentException("El nombre no puede estar vacio", nameof(name));
 
         Name = name;
         UpdateEditAudit(updatedBy);

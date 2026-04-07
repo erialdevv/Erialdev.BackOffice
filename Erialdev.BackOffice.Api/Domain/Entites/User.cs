@@ -1,3 +1,4 @@
+using System.Linq;
 using Erialdev.BackOffice.Api.Domain.ValueObjects;
 using Erialdev.BackOffice.Api.Domain.ValueObjects.User;
 
@@ -9,6 +10,8 @@ public class User : Entity
     public string LastName { get; private set; }
     public UserName UserName { get; private set; }
     public Password Password { get; private set; }
+
+    public List<Role> Roles { get; private set; } = [];
 
     public User(string code, string name, string lastname, string password, string username, string createdBy, string pcid)
         : base(code, createdBy, pcid)
@@ -43,7 +46,7 @@ public class User : Entity
             throw new InvalidOperationException("No se puede modificar un usuario Anulado");
 
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("El nombre no puede estar vacio");
+            throw new ArgumentException("El nombre no puede estar vacio", nameof(name));
 
         Name = name;
         UpdateEditAudit(updatedBy);
@@ -55,7 +58,7 @@ public class User : Entity
             throw new InvalidOperationException("No se puede modificar un usuario Anulado");
 
         if (string.IsNullOrWhiteSpace(lastname))
-            throw new ArgumentException("El apellido no puede estar vacio");
+            throw new ArgumentException("El apellido no puede estar vacio", nameof(lastname));
 
         LastName = lastname;
         UpdateEditAudit(updatedBy);
@@ -78,6 +81,32 @@ public class User : Entity
         Password = new Password(password);
         UpdateEditAudit(updatedBy);
     }
+
+    public void AddRole(Role role, string createdBy)
+    {
+        if (IsCanceled)
+            throw new InvalidOperationException("No se puede cambiar el rol  de un usuario Anulado");
+
+        if (Roles.Any(rolExistente => rolExistente.Id == role.Id))
+        {
+            throw new InvalidOperationException("El rol ya existe en el usuario");
+        }
+
+
+        Roles.Add(role);
+        UpdateEditAudit(createdBy);
+    }
+
+    public void RemoveRole(Role role, string updatedBy)
+    {
+        if (IsCanceled)
+            throw new InvalidOperationException("No se puede cambiar el rol  de un usuario Anulado");
+
+        Roles.Remove(role);
+        UpdateEditAudit(updatedBy);
+    }
+
+
 
     public override string ToString()
     {

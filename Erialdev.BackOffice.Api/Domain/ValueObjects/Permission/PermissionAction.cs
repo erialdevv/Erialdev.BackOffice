@@ -13,11 +13,11 @@ public class PermissionAction
     public PermissionAction(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentNullException("La acción no puede estar vacia");
+            throw new ArgumentNullException(nameof(value), "La acción no puede estar vacia");
         
         var valueUpper = value.ToUpper();
         if (!ActionsOk.Contains(valueUpper))
-            throw new ArgumentException($"La acción '{value}' no es válida.");
+            throw new ArgumentException($"La acción '{value}' no es válida.", nameof(value));
         
         Value = valueUpper;
     }

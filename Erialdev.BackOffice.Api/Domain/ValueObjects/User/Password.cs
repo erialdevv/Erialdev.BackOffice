@@ -9,10 +9,10 @@ namespace Erialdev.BackOffice.Api.Domain.ValueObjects.User{
 
         public Password(string value){
             if(string.IsNullOrWhiteSpace(value))
-                throw new ArgumentNullException("La contraseña no puede estar vacia");
+                throw new ArgumentNullException(nameof(value), "La contraseña no puede estar vacia");
 
             if(!Regex.IsMatch(value,Pattern))
-                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial");
+                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial", nameof(value));
 
             Value=value;
         }

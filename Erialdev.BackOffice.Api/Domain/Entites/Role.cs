@@ -29,7 +29,7 @@ public class Role : Entity
             throw new InvalidOperationException("No se puede modificar un rol Anulado");
 
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("El nombre no puede estar vacio");
+            throw new ArgumentNullException(nameof(name), "El nombre no puede estar vacio");
 
         Name = name;
         UpdateEditAudit(updatedBy);
