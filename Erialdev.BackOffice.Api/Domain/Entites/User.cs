@@ -11,7 +11,7 @@ public class User : Entity
     public UserName UserName { get; private set; }
     public Password Password { get; private set; }
 
-    public List<Role> Roles { get; private set; } = [];
+    public List<UserRole> UserRoles { get; private set; } = [];
 
     public User(string code, string name, string lastname, string password, string username, string createdBy, string pcid)
         : base(code, createdBy, pcid)
@@ -82,18 +82,10 @@ public class User : Entity
         UpdateEditAudit(updatedBy);
     }
 
-    public void AddRole(Role role, string createdBy)
+    public void AddRole(Role role, string createdBy, string pcid)
     {
-        if (IsCanceled)
-            throw new InvalidOperationException("No se puede cambiar el rol  de un usuario Anulado");
-
-        if (Roles.Any(rolExistente => rolExistente.Id == role.Id))
-        {
-            throw new InvalidOperationException("El rol ya existe en el usuario");
-        }
-
-
-        Roles.Add(role);
+        var assignment = new UserRole(Guid.NewGuid().ToString(), this, role, createdBy, pcid);
+        UserRoles.Add(assignment);
         UpdateEditAudit(createdBy);
     }
 
@@ -102,10 +94,14 @@ public class User : Entity
         if (IsCanceled)
             throw new InvalidOperationException("No se puede cambiar el rol  de un usuario Anulado");
 
-        Roles.Remove(role);
-        UpdateEditAudit(updatedBy);
-    }
+        var assignment = UserRoles.FirstOrDefault(x => x.Role.Id == role.Id);
+        if (assignment != null)
+        {
+            UserRoles.Remove(assignment);
+            UpdateEditAudit(updatedBy);
+        }
 
+    }
 
 
     public override string ToString()

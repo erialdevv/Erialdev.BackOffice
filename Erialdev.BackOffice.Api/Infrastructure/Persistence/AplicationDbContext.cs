@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
        : base(options)
     {
     }
+
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<Resource> Resources { get; set; }
     public DbSet<Role> Roles { get; set; }

@@ -42,7 +42,6 @@ public abstract class Entity
     public virtual void Cancel(string cancelledBy)
     {
         if (IsCanceled) return;
-
         IsCanceled = true;
         CancelDate = DateTime.Now;
         CancelAt = cancelledBy;
