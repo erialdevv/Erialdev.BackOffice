@@ -11,7 +11,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.ToTable("backoffice_roles");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Code).HasConversion(v => v.Value, v => new Code(v)).IsRequired().HasMaxLength(20);
+        builder.Property(x => x.Code).HasConversion(v => v.Value, v => new Code(v)).IsRequired().HasMaxLength(30);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
     }
 }

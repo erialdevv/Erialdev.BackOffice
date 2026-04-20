@@ -13,8 +13,8 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     {
         builder.ToTable("permissions");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Code).HasConversion(v => v.Value, v => new Code(v)).IsRequired().HasMaxLength(20);
-        builder.Property(x => x.Action).HasConversion(v => v.Value, v => new PermissionAction(v)).IsRequired().HasMaxLength(20);
+        builder.Property(x => x.Code).HasConversion(v => v.Value, v => new Code(v)).IsRequired().HasMaxLength(30);
+        builder.Property(x => x.Action).HasConversion(v => v.Value, v => new PermissionAction(v)).IsRequired().HasMaxLength(30);
 
         builder.HasOne(x => x.Resource).WithMany().HasForeignKey("resourceid");
 

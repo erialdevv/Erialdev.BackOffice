@@ -16,13 +16,15 @@ public abstract class Entity
     public bool IsCanceled { get; protected set; }
     public string? Pcid { get; protected set; }
 
-    protected Entity(string code, string createdBy, string pcid)
+    protected Entity() { }
+
+    protected Entity(string code, CreationAudit audit)
     {
         Id = Guid.CreateVersion7();
         Code = new Code(code);
-        CreateDate = DateTime.Now;
-        CreateAt = createdBy;
-        Pcid = pcid;
+        CreateDate = DateTime.UtcNow;
+        CreateAt = audit.Actor.UserName;
+        Pcid = audit.Pcid;
     }
 
     protected Entity(Guid id, string code, DateTime createDate, string createAt, string? editAt, DateTime? editDate, string? pcid, bool isCanceled, DateTime? cancelDate, string? cancelAt)
@@ -39,17 +41,17 @@ public abstract class Entity
         CancelAt = cancelAt;
     }
 
-    public virtual void Cancel(string cancelledBy)
+    public virtual void Cancel(AuditActor actor)
     {
         if (IsCanceled) return;
         IsCanceled = true;
-        CancelDate = DateTime.Now;
-        CancelAt = cancelledBy;
+        CancelDate = DateTime.UtcNow;
+        CancelAt = actor.UserName;
     }
 
-    protected void UpdateEditAudit(string editedBy)
+    protected void UpdateEditAudit(AuditActor actor)
     {
-        EditDate = DateTime.Now;
-        EditAt = editedBy;
+        EditDate = DateTime.UtcNow;
+        EditAt = actor.UserName;
     }
 }

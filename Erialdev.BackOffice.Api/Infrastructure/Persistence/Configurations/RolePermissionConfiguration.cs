@@ -5,13 +5,23 @@ using Erialdev.BackOffice.Api.Domain.Entites;
 using Erialdev.BackOffice.Api.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-public class ResourceConfiguration : IEntityTypeConfiguration<Resource>
+public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermission>
 {
-    public void Configure(EntityTypeBuilder<Resource> builder)
+    public void Configure(EntityTypeBuilder<RolePermission> builder)
     {
-        builder.ToTable("backoffice_resources");
+        builder.ToTable("backoffice_rolepermissions");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Code).HasConversion(v => v.Value, v => new Code(v)).IsRequired().HasMaxLength(30);
-        builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+
+        builder.HasOne(x => x.Role)
+        .WithMany()
+        .HasForeignKey("roleid");
+
+        builder.HasOne(x => x.Permission)
+        .WithMany()
+        .HasForeignKey("permissionid");
+
+
+
     }
 }
